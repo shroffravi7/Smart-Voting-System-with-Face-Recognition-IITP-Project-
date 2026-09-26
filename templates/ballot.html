@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Ballot{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <p class="eyebrow">AUTHENTICATED VOTER</p>
+  <h1>Welcome, {{ voter.full_name }}</h1>
+  <p class="muted">Select one candidate. Your vote can only be submitted once.</p>
+</div>
+
+<form id="voteForm" class="grid">
+  {% for candidate in candidates %}
+  <label class="candidate-card">
+    <input type="radio" name="candidate_id" value="{{ candidate.id }}" required>
+    <div>
+      <strong>{{ candidate.name }}</strong>
+      <span>{{ candidate.party or "Independent" }}</span>
+      {% if candidate.symbol %}<small>{{ candidate.symbol }}</small>{% endif %}
+    </div>
+  </label>
+  {% endfor %}
+  <button class="btn primary full" type="submit">Submit Vote</button>
+</form>
+
+<script>
+document.getElementById("voteForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const form = new FormData(e.target);
+  const response = await fetch("{{ url_for('cast_vote') }}", {method: "POST", body: form});
+  const data = await response.json();
+  alert(data.message);
+  if (data.ok) window.location = "{{ url_for('index') }}";
+});
+</script>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Results{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <p class="eyebrow">ADMIN VIEW</p>
+  <h1>Vote Summary</h1>
+  <p class="muted">Total recorded votes: {{ total }}</p>
+</div>
+<section class="card">
+<table>
+  <tr><th>Candidate</th><th>Party</th><th>Votes</th><th>Share</th></tr>
+  {% for row in rows %}
+  <tr>
+    <td>{{ row.name }}</td>
+    <td>{{ row.party or "Independent" }}</td>
+    <td>{{ row.votes }}</td>
+    <td>{{ row.percentage }}%</td>
+  </tr>
+  {% endfor %}
+</table>
+</section>
+{% endblock %}

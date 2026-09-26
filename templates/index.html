@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}SmartVote | Welcome{% endblock %}
+{% block content %}
+<section class="landing-hero">
+  <div class="hero-copy">
+    <div class="eyebrow-pill">SMARTVOTE • FACE VERIFIED</div>
+    <h1>Secure voting,<br><span>made simple.</span></h1>
+    <p class="hero-text">Create your voter account, sign in, verify your registered face, and cast your vote through a guided digital ballot.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="{{ url_for('signup') }}">Create voter account</a>
+      <a class="btn secondary" href="{{ url_for('signin') }}">Sign in</a>
+    </div>
+    <div class="trust-row"><span>✓ Face verification</span><span>✓ One vote per voter</span><span>✓ Audit logging</span></div>
+  </div>
+  <div class="hero-panel">
+    <div class="mini-top"><span class="live-dot"></span> Voting portal</div>
+    <div class="shield-icon">⌁</div>
+    <h3>Identity first</h3>
+    <p>Face verification is required before the ballot is opened.</p>
+    <div class="step-list">
+      <div><b>01</b><span>Create account</span></div>
+      <div><b>02</b><span>Sign in securely</span></div>
+      <div><b>03</b><span>Verify face & vote</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-heading"><div><p class="eyebrow">ACTIVE ELECTION</p><h2>Available candidates</h2></div><span class="count-badge">{{ candidates|length }} active</span></section>
+<div class="candidate-preview-grid">
+{% for candidate in candidates %}
+  <div class="preview-card"><div class="candidate-symbol">{{ candidate.symbol or candidate.name[:1] }}</div><div><strong>{{ candidate.name }}</strong><p>{{ candidate.party or "Independent" }}</p></div></div>
+{% else %}<div class="card empty-state">No candidates have been added yet.</div>{% endfor %}
+</div>
+
+<div class="info-banner"><div class="info-icon">i</div><div><strong>Prototype notice</strong><p>This application is an educational prototype. Production election deployment requires formal legal, privacy, accessibility, security, liveness and independent audit controls.</p></div></div>
+{% endblock %}

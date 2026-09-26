@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Face Verification | SmartVote{% endblock %}
+{% block content %}
+<div class="verify-layout"><div><p class="eyebrow">STEP 2 OF 2</p><h1>Verify your face</h1><p class="muted">Signed in as <strong>{{ voter.full_name }}</strong> ({{ voter.voter_id }}). Position one face inside the camera frame.</p><div class="verification-steps"><span class="done">✓ Account</span><span class="active">02 Face</span><span>03 Ballot</span></div></div>
+<section class="card verify-card"><div class="camera-frame"><video id="camera" autoplay playsinline></video><div class="frame-corners"></div></div><canvas id="snapshot" hidden></canvas><div class="camera-actions"><button class="btn secondary" id="startCamera">Start Camera</button><button class="btn primary" id="verifyBtn">Verify & open ballot</button></div><p id="cameraStatus" class="muted">Camera is not started.</p><a class="text-link" href="{{ url_for('signout') }}">Cancel and sign out</a></section></div>
+<script>window.SMARTVOTE={verifyUrl:"{{ url_for('verify') }}"};</script><script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+{% endblock %}
